@@ -4,87 +4,385 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>STIK Market | Tu mercado digital, en un solo lugar</title>
+  <meta name="description" content="STIK Market: tu mercado digital en Barranquilla y alrededores. Cotiza por WhatsApp 3126255133.">
   <style>
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#fff}
-    header{background:#070a12;padding:16px;display:flex;justify-content:space-between;align-items:center}
-    header h1{margin:0;font-size:18px}
-    .btn{background:#22c55e;color:#05210f;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:bold;display:inline-block}
-    .wrap{max-width:1100px;margin:auto;padding:20px}
-    h2{margin-top:40px}
-    .cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
-    .cat,.product{background:#111a2e;border-radius:16px;padding:16px}
-    .cat button,.product a{margin-top:12px;width:100%}
-    .panel{display:none;margin-top:16px}
-    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
-    img{width:100%;border-radius:12px}
+    :root{
+      --bg:#070a12;
+      --bg2:#0b1220;
+      --card:#111a2e;
+      --text:#e9eefc;
+      --muted:#b8c3e6;
+      --cta:#22c55e;
+      --cta2:#16a34a;
+      --border:rgba(255,255,255,.10);
+      --shadow:0 16px 50px rgba(0,0,0,.42);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 800px at 15% 10%, rgba(167,139,250,.18), transparent 60%),
+        radial-gradient(900px 600px at 85% 10%, rgba(110,231,255,.14), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 70%);
+      color:var(--text);
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1120px;margin:0 auto;padding:22px}
+
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:50;
+      background:rgba(7,10,18,.75);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--border);
+    }
+    .topbar{
+      max-width:1120px;margin:0 auto;
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+      padding:14px 22px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;min-width:240px}
+    .brand img{
+      width:46px;height:46px;border-radius:14px;object-fit:cover;
+      border:1px solid var(--border); box-shadow:0 12px 30px rgba(167,139,250,.18);
+      background:rgba(255,255,255,.03);
+    }
+    .brand strong{display:block;font-size:14px;letter-spacing:.3px}
+    .brand span{display:block;font-size:12px;color:var(--muted)}
+    nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    nav a{font-size:13px;color:var(--muted);padding:8px 10px;border-radius:12px}
+    nav a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:11px 14px;border-radius:14px;border:1px solid transparent;
+      font-weight:900;font-size:13px; cursor:pointer;
+      transition:.15s transform ease;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn-primary{
+      background: linear-gradient(180deg, var(--cta) 0%, var(--cta2) 100%);
+      color:#05210f; box-shadow: 0 14px 30px rgba(34,197,94,.18);
+    }
+    .btn-ghost{background:transparent;border-color:var(--border);color:var(--text);font-weight:800}
+
+    /* Sections */
+    .card{
+      background:rgba(17,26,46,.78);
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:22px; box-shadow:var(--shadow);
+    }
+    h1{margin:0 0 8px;font-size:28px;line-height:1.1}
+    .lead{margin:0;color:var(--muted);font-size:14px}
+    .kicker{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;border:1px solid var(--border);
+      font-size:12px;color:var(--muted);background:rgba(255,255,255,.03);
+      margin-bottom:12px;
+    }
+    .dot{width:9px;height:9px;border-radius:50%;background:var(--cta);box-shadow:0 0 0 6px rgba(34,197,94,.12)}
+
+    /* Catalog */
+    h2{margin:18px 0 10px}
+    .cats{display:grid;grid-template-columns:repeat(5,1fr);,
+      gap:12px;margin-top:12px}
+    .cat{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:16px;
+      display:flex;flex-direction:column;gap:10px;
+      min-height:150px;
+    }
+    .cat b{font-size:14px}
+    .cat small{color:var(--muted);font-size:12px}
+    .cat .btn{margin-top:auto;width:100%}
+
+    .panel{
+      display:none;
+      margin-top:14px;
+      background:rgba(255,255,255,.02);
+      border:1px dashed rgba(255,255,255,.18);
+      border-radius:20px;
+      padding:14px;
+    }
+    .panelHeader{
+      display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .panelHeader b{font-size:14px}
+    .panelHeader small{color:var(--muted);font-size:12px}
+
+    .products{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    .product{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:14px;
+      display:flex;flex-direction:column;gap:8px;
+      min-height:240px;
+    }
+    .product img{
+      width:100%;height:160px;object-fit:cover;border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.02);
+    }
+    .product h4{margin:0;font-size:14px}
+    .tag{margin:0;color:var(--muted);font-size:12px}
+    .price{margin:0;font-weight:900}
+    .product .btn{margin-top:auto;width:100%}
+
+    .how{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+    .step{border:1px solid var(--border);border-radius:20px;padding:16px;background:rgba(255,255,255,.03)}
+    .step b{display:block;margin-top:6px}
+    .step p{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+    footer{border-top:1px solid var(--border);padding:18px 0;margin-top:18px;color:var(--muted);font-size:12px}
+
+    @media (max-width: 1100px){
+      .cats{grid-template-columns:repeat(3,1fr)}
+      .products{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (max-width: 980px){
+      nav{display:none}
+      .cats{grid-template-columns:repeat(2,1fr)}
+      .products{grid-template-columns:repeat(2,1fr)}
+      .how{grid-template-columns:repeat(2,1fr)}
+      h1{font-size:24px}
+    }
   </style>
 </head>
 <body>
 
+<script>
+  const WHATSAPP_NUMBER = "573126255133"; // +57 312 625 5133
+
+  function wa(message){
+    const text = encodeURIComponent(message);
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
+  }
+
+  // Abre una categoría y cierra las demás
+  function openCategory(panelId){
+    document.querySelectorAll(".panel").forEach(p => {
+      if (p.id !== panelId) p.style.display = "none";
+    });
+    const el = document.getElementById(panelId);
+    if (!el) return;
+    el.style.display = (el.style.display === "none" || el.style.display === "") ? "block" : "none";
+    if (el.style.display === "block"){
+      setTimeout(() => el.scrollIntoView({behavior:"smooth", block:"start"}), 120);
+    }
+  }
+</script>
+
 <header>
-  <h1>STIK Market</h1>
-  <a class="btn" href="https://wa.me/573126255133">Pedir por WhatsApp</a>
+  <div class="topbar">
+    <a class="brand" href="#inicio">
+      <img src="logo.png" alt="Logo STIK Market" onerror="this.style.display='none'">
+      <div>
+        <strong>STIK Market</strong>
+        <span>Tu mercado digital, en un solo lugar</span>
+      </div>
+    </a>
+
+    <nav>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#como">Cómo comprar</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <button class="btn btn-primary"
+      onclick="wa('Hola STIK Market 👋 Vengo de la página.\\n\\n🛒 Producto: __\\n📍 Zona (Barranquilla/Soledad/etc): __\\n📦 Cantidad: __')">
+      🟢 Pedir por WhatsApp
+    </button>
+  </div>
 </header>
 
-<div class="wrap">
-  <h2>Catálogo</h2>
+<main class="wrap" id="inicio">
+  <section class="card">
+    <div class="kicker"><span class="dot"></span> Barranquilla y alrededores • WhatsApp: 312 625 5133</div>
+    <h1>Catálogo interactivo por categorías</h1>
+    <p class="lead">
+      Primero miras el catálogo. Si te interesa un producto, tocas <b>Cotizar por WhatsApp</b> y te llega el mensaje listo.
+    </p>
+  </section>
 
-  <div class="cats">
-    <div class="cat">
-      <b>Cuidado personal</b>
-      <button class="btn" onclick="toggle('personal')">Ver productos</button>
-    </div>
-    <div class="cat">
-      <b>Apps y streaming</b>
-      <button class="btn" onclick="toggle('streaming')">Ver productos</button>
-    </div>
-    <div class="cat">
-      <b>Electrodomésticos</b>
-      <button class="btn" onclick="toggle('electro')">Ver productos</button>
-    </div>
-    <div class="cat">
-      <b>Snack</b>
-      <button class="btn" onclick="toggle('snack')">Ver productos</button>
-    </div>
-    <div class="cat">
-      <b>Relojes y perfumería</b>
-      <button class="btn" onclick="toggle('relojes')">Ver productos</button>
-    </div>
-  </div>
+  <section id="catalogo">
+    <h2>Catálogo</h2>
 
-  <div id="personal" class="panel">
-    <h3>Cuidado personal</h3>
-    <div class="products">
-      <div class="product">
-        <img src="img/shampoo.jpg">
-        <b>Shampoo Poción Control Caspa</b>
-        <p>$46.000</p>
-        <a class="btn" href="https://wa.me/573126255133?text=Quiero%20cotizar%20Shampoo%20Poción%20Control%20Caspa">Cotizar</a>
+    <div class="cats">
+      <div class="cat">
+        <b>🧴 Cuidado personal</b>
+        <small>Productos de cuidado y belleza.</small>
+        <button class="btn btn-primary" onclick="openCategory('p-personal')">Ver productos</button>
+      </div>
+
+      <div class="cat">
+        <b>📺 Apps y streaming</b>
+        <small>Planes, recargas, suscripciones.</small>
+        <button class="btn btn-primary" onclick="openCategory('p-streaming')">Ver productos</button>
+      </div>
+
+      <div class="cat">
+        <b>🔌 Electrodomésticos</b>
+        <small>Airfryer, licuadoras, TV, etc.</small>
+        <button class="btn btn-primary" onclick="openCategory('p-electro')">Ver productos</button>
+      </div>
+
+      <div class="cat">
+        <b>🍪 Snack</b>
+        <small>Antojos, combos, packs.</small>
+        <button class="btn btn-primary" onclick="openCategory('p-snack')">Ver productos</button>
+      </div>
+
+      <div class="cat">
+        <b>⌚ Relojes y perfumería</b>
+        <small>Relojes, colonias, perfumes.</small>
+        <button class="btn btn-primary" onclick="openCategory('p-relojes')">Ver productos</button>
       </div>
     </div>
-  </div>
 
-  <div id="streaming" class="panel">
-    <h3>Apps y streaming</h3>
-    <div class="products">
-      <div class="product">
-        <img src="img/netflix.jpg">
-        <b>Netflix Original</b>
-        <p>Consultar</p>
-        <a class="btn" href="https://wa.me/573126255133?text=Quiero%20cotizar%20Netflix">Cotizar</a>
+    <!-- PANEL: CUIDADO PERSONAL -->
+    <div class="panel" id="p-personal">
+      <div class="panelHeader">
+        <div>
+          <b>🧴 Cuidado personal</b>
+          <small>Productos disponibles</small>
+        </div>
+        <button class="btn btn-ghost" onclick="openCategory('p-personal')">Cerrar</button>
+      </div>
+
+      <div class="products">
+        <div class="product">
+          <img src="img/shampoo.jpg" alt="Shampoo Poción Control Caspa" onerror="this.style.display='none'">
+          <h4>Shampoo Poción Control Caspa</h4>
+          <p class="tag">🟢 Disponible por pedido</p>
+          <p class="price">$46.000</p>
+          <button class="btn btn-primary"
+            onclick="wa('Hola STIK Market 👋 Quiero cotizar: Shampoo Poción Control Caspa. 💲 Precio visto: $46.000. 📍 Zona: __. 📦 Cantidad: __')">
+            Cotizar por WhatsApp
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-</div>
+    <!-- PANEL: STREAMING -->
+    <div class="panel" id="p-streaming">
+      <div class="panelHeader">
+        <div>
+          <b>📺 Apps y streaming</b>
+          <small>Productos disponibles</small>
+        </div>
+        <button class="btn btn-ghost" onclick="openCategory('p-streaming')">Cerrar</button>
+      </div>
 
-<script>
-function toggle(id){
-  document.querySelectorAll('.panel').forEach(p=>p.style.display='none');
-  const el=document.getElementById(id);
-  if(el) el.style.display='block';
-}
-</script>
+      <div class="products">
+        <div class="product">
+          <img src="img/netflix.jpg" alt="Netflix" onerror="this.style.display='none'">
+          <h4>Pantallas Netflix Originales</h4>
+          <p class="tag">🟢 Disponible por pedido</p>
+          <p class="price">Consultar</p>
+          <button class="btn btn-primary"
+            onclick="wa('Hola STIK Market 👋 Quiero cotizar: Pantallas Netflix Originales. 📍 Zona: __. Cantidad de pantallas: __')">
+            Cotizar por WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: ELECTRO -->
+    <div class="panel" id="p-electro">
+      <div class="panelHeader">
+        <div>
+          <b>🔌 Electrodomésticos</b>
+          <small>Productos disponibles</small>
+        </div>
+        <button class="btn btn-ghost" onclick="openCategory('p-electro')">Cerrar</button>
+      </div>
+
+      <div class="products">
+        <div class="product">
+          <h4>🧾 Próximamente</h4>
+          <p class="tag">Dime qué electro quieres mostrar primero y lo montamos con foto y botón.</p>
+          <button class="btn btn-primary"
+            onclick="wa('Hola STIK Market 👋 Quiero cotizar un electrodoméstico. Busco: __. Presupuesto: __. Zona: __')">
+            Cotizar por WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: SNACK -->
+    <div class="panel" id="p-snack">
+      <div class="panelHeader">
+        <div>
+          <b>🍪 Snack</b>
+          <small>Productos disponibles</small>
+        </div>
+        <button class="btn btn-ghost" onclick="openCategory('p-snack')">Cerrar</button>
+      </div>
+
+      <div class="products">
+        <div class="product">
+          <h4>🧾 Próximamente</h4>
+          <p class="tag">Dime los snacks que vendes y los agregamos con fotos.</p>
+          <button class="btn btn-primary"
+            onclick="wa('Hola STIK Market 👋 Quiero cotizar snacks. Tipo (dulce/salado/mixto): __. Cantidad: __. Zona: __')">
+            Cotizar por WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL: RELOJES -->
+    <div class="panel" id="p-relojes">
+      <div class="panelHeader">
+        <div>
+          <b>⌚ Relojes y perfumería</b>
+          <small>Productos disponibles</small>
+        </div>
+        <button class="btn btn-ghost" onclick="openCategory('p-relojes')">Cerrar</button>
+      </div>
+
+      <div class="products">
+        <div class="product">
+          <h4>🧾 Próximamente</h4>
+          <p class="tag">Dime el primer reloj o perfume a mostrar y lo montamos con foto.</p>
+          <button class="btn btn-primary"
+            onclick="wa('Hola STIK Market 👋 Quiero cotizar relojes/perfumería. Producto: __. Presupuesto: __. Zona: __')">
+            Cotizar por WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="como">
+    <h2>Cómo comprar</h2>
+    <div class="how">
+      <div class="step"><b>1) Eliges</b><p>Exploras el catálogo por categorías.</p></div>
+      <div class="step"><b>2) Cotizas</b><p>Das clic en “Cotizar por WhatsApp”.</p></div>
+      <div class="step"><b>3) Confirmamos</b><p>Precio, disponibilidad y entrega.</p></div>
+      <div class="step"><b>4) Entregamos</b><p>Coordinamos tu entrega por zona.</p></div>
+    </div>
+  </section>
+
+  <section id="contacto" class="card">
+    <h2 style="margin:0 0 8px">Contacto</h2>
+    <p class="lead" style="margin:0 0 12px">📍 Barranquilla y alrededores • 📲 WhatsApp: <b>312 625 5133</b></p>
+    <button class="btn btn-primary"
+      onclick="wa('Hola STIK Market 👋 Quiero cotizar.\\n📍 Zona: __\\n🛒 Producto: __\\n📦 Cantidad: __')">
+      Escribir por WhatsApp
+    </button>
+  </section>
+
+  <footer>© STIK Market • Tu mercado digital, en un solo lugar</footer>
+</main>
 
 </body>
 </html>
