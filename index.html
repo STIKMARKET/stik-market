@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>STIK Market | Tu mercado digital, en un solo lugar</title>
+  <style>
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0b1220;color:#fff}
+    header{background:#070a12;padding:16px;display:flex;justify-content:space-between;align-items:center}
+    header h1{margin:0;font-size:18px}
+    .btn{background:#22c55e;color:#05210f;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:bold;display:inline-block}
+    .wrap{max-width:1100px;margin:auto;padding:20px}
+    h2{margin-top:40px}
+    .cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+    .cat,.product{background:#111a2e;border-radius:16px;padding:16px}
+    .cat button,.product a{margin-top:12px;width:100%}
+    .panel{display:none;margin-top:16px}
+    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+    img{width:100%;border-radius:12px}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>STIK Market</h1>
+  <a class="btn" href="https://wa.me/573126255133">Pedir por WhatsApp</a>
+</header>
+
+<div class="wrap">
+  <h2>Catálogo</h2>
+
+  <div class="cats">
+    <div class="cat">
+      <b>Cuidado personal</b>
+      <button class="btn" onclick="toggle('personal')">Ver productos</button>
+    </div>
+    <div class="cat">
+      <b>Apps y streaming</b>
+      <button class="btn" onclick="toggle('streaming')">Ver productos</button>
+    </div>
+    <div class="cat">
+      <b>Electrodomésticos</b>
+      <button class="btn" onclick="toggle('electro')">Ver productos</button>
+    </div>
+    <div class="cat">
+      <b>Snack</b>
+      <button class="btn" onclick="toggle('snack')">Ver productos</button>
+    </div>
+    <div class="cat">
+      <b>Relojes y perfumería</b>
+      <button class="btn" onclick="toggle('relojes')">Ver productos</button>
+    </div>
+  </div>
+
+  <div id="personal" class="panel">
+    <h3>Cuidado personal</h3>
+    <div class="products">
+      <div class="product">
+        <img src="img/shampoo.jpg">
+        <b>Shampoo Poción Control Caspa</b>
+        <p>$46.000</p>
+        <a class="btn" href="https://wa.me/573126255133?text=Quiero%20cotizar%20Shampoo%20Poción%20Control%20Caspa">Cotizar</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="streaming" class="panel">
+    <h3>Apps y streaming</h3>
+    <div class="products">
+      <div class="product">
+        <img src="img/netflix.jpg">
+        <b>Netflix Original</b>
+        <p>Consultar</p>
+        <a class="btn" href="https://wa.me/573126255133?text=Quiero%20cotizar%20Netflix">Cotizar</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggle(id){
+  document.querySelectorAll('.panel').forEach(p=>p.style.display='none');
+  const el=document.getElementById(id);
+  if(el) el.style.display='block';
+}
+</script>
+
+</body>
+</html>
